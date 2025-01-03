@@ -76,35 +76,23 @@
 
 <?php
 require 'controller.php';
-// require 'classeFilme.php';
+
 if(isset($_GET['id'])){
-  $idFilme = $_GET['id'];
-  $novo_obj = controller::getFilmePorId($idFilme);
-  $filme = $novo_obj; 
-  ob_end_clean();
   
-  echo $filme['titulo'] . "<br>";
-  echo $filme['sinopse'] . "<br>";
-  echo $filme['episodio_id'] . "<br>";
-  echo $filme['diretor'] . "<br>";
-  echo $filme['produtor'] . "<br>";
-  $personagens = $filme['personagens'];
-  $listaPersonagens = filme::listarPersonagens($personagens);
-  ?>
-  <ul>
-  <?php
-  foreach ($listaPersonagens as $lp){
-   ?> 
-   <li style = "height:80px; width:100px; background-color: orange; margin-bottom:30px;"><?php echo $lp['name'] . "<br>";?> </li> 
+  $idFilme = $_GET['id'];
+  
+  $novo_obj = controller::getFilmePorId($idFilme);
+  
+  //$filme = $novo_obj; 
+ ob_end_clean();
+ 
+ echo "<pre>";
+ $especificacoes = get_object_vars($novo_obj);
+ echo $especificacoes['titulo'] . "<br><br>";
+ $personagens = $novo_obj->listarPersonagens($novo_obj->getPersonagens());
+ foreach($personagens as $p){
+  echo $p['name'] . "<br>";
+ }
 
-   <?php
-  }
-?>
-  </ul>
-
-<?php
 }
-
-
-
 ?>

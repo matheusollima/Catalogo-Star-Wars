@@ -68,7 +68,7 @@ public function setPersonagens($personagens){
    $this->personagens = $personagens;
 }
 
-public static function listarPersonagens($p){
+public function listarPersonagens($p){
   $personagensUrl = $p;
   $personagensLista = array();
   forEach($personagensUrl as $f){
