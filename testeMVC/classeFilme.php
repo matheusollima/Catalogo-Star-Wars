@@ -68,16 +68,18 @@ public function setPersonagens($personagens){
    $this->personagens = $personagens;
 }
 
-public function listarPersonagens(){
-  $personagensLista = $this->personagens;
- forEach($personagensLista as $f){
+public static function listarPersonagens($p){
+  $personagensUrl = $p;
+  $personagensLista = array();
+  forEach($personagensUrl as $f){
    $url = $f;
    $ch = curl_init($url);
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
    $personagens = json_decode(curl_exec($ch), true);
-   echo $personagens['name'] . "<br>";
+   $personagensLista[] = $personagens;
  }
+  return $personagensLista;
 }
 
 

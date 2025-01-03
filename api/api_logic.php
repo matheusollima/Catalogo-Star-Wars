@@ -25,7 +25,6 @@ function listarFilmes($filme_id){
       if($filme['results'][$i]['episode_id'] == $filme_id){
         // echo $filme['results'][$i]['title'] . "<br>";
         // echo $filme['results'][$i]['opening_crawl'];
-        echo "<pre>";
         $listaFilmes = $filme['results'][$i];
         return $listaFilmes;
     }
