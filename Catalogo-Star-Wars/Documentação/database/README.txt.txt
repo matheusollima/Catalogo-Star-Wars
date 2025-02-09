@@ -1,0 +1,1 @@
+Banco de dados 'logs' para registro das requisições da appi

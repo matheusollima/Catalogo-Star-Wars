@@ -1,0 +1,23 @@
+{
+  "name": "catalogo-star-wars",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matheusollima/Catalogo-Star-Wars.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matheusollima/Catalogo-Star-Wars/issues"
+  },
+  "homepage": "https://github.com/matheusollima/Catalogo-Star-Wars#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1"
+  }
+}
