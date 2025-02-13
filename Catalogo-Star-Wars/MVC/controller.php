@@ -14,7 +14,7 @@ require 'conexaoBD.php';
     require 'logger.php';
     // Coleta o arquivo Json da api listarFilmes
       $idFilme = $id;
-      $api_url = "http://localhost:8080/Projetos/Projeto-Star-Wars/Catalogo-Star-Wars/api/listarFilmes.php?id=" . urlencode($idFilme);
+      $api_url = "http://localhost/Projetos/Projeto-Star-Wars/Catalogo-Star-Wars/api/listarFilmes.php?id=" . urlencode($idFilme);
       
       
       
