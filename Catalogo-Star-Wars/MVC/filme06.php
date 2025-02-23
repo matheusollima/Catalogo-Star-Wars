@@ -21,6 +21,7 @@
 <?php
 require 'controller.php';
 require 'calculoIdade.php';
+require '../google-translate/translate.php';
 
 // Criação do objeto do com dados do filme
 if(isset($_GET['id'])){
@@ -50,7 +51,7 @@ $idadeFilme = calcularIdade($especificacoes['data_lançamento']);
 $idadeFilme = $idadeFilme['anos'] . " anos " . $idadeFilme['meses'] . " meses " . $idadeFilme['dias'] . " dias <br>";
 
  // ESPECIFICAÇÕES -----------------------------------------------------------------------------
- echo "Star Wars - " . $especificacoes['titulo'] . "<br>";
+ echo "Star Wars - " . traduzir($especificacoes['titulo']) . "<br>";
  ?>
  </h1>
  </div>
@@ -70,8 +71,16 @@ $idadeFilme = $idadeFilme['anos'] . " anos " . $idadeFilme['meses'] . " meses " 
 
  <div class = "painel">
  <h2 class = "label">Episódio </h2><h2 class = "texto"><?php echo $especificacoes['episodio_id'] . "<br>";?></h2> 
- <h2 class = "label">Data de lançamento - </h2><div class = "texto" ><?php echo $especificacoes['data_lançamento'] . "<br>";?></div>
- <h2 class = "label">Sinopse - </h2> <div class = "texto"><?php echo $especificacoes['sinopse'] . "<br>";?></div>
+ <h2 class = "label">Data de lançamento - </h2>
+ <div class = "texto" >
+  <?php
+  // ALTERAR DATA DO FORMATO YMD PARA DMY
+  $dataYMD = DateTime::createFromFormat("Y-m-d", $especificacoes['data_lançamento'] );
+  $dataDMY = $dataYMD->format("d-m-Y");
+  echo $dataDMY . "<br>";
+  ?>
+</div> 
+ <h2 class = "label">Sinopse - </h2> <div class = "texto"><?php echo traduzir($especificacoes['sinopse']) . "<br>";?></div>
  <h2 class = "label" >Diretor - </h2> <div class = "texto"><?php echo $especificacoes['diretor'] . "<br>";?></div>
  <h2 class = "label" >Produtor - </h2> <div class = "texto"><?php echo $especificacoes['produtor'] . "<br><br>";?></div>     
  <h2 class = "label" >Idade do filme - </h2> <div class = "texto"><?php echo $idadeFilme;?></div>  
@@ -83,7 +92,6 @@ $idadeFilme = $idadeFilme['anos'] . " anos " . $idadeFilme['meses'] . " meses " 
 
  <?php
  // LISTAR PERSONAGENS -------------------------------------------------------------------------
- $personagens = $novo_obj->listarPersonagens($novo_obj->getPersonagens());
  
  
  ?>
@@ -127,7 +135,31 @@ $idadeFilme = $idadeFilme['anos'] . " anos " . $idadeFilme['meses'] . " meses " 
 }
 
 ?>
-
+<script>
+  var idFilme = <?php echo $idFilme; ?>;
+const botoes = document.querySelectorAll('.btn-personagem');
+$(document).ready(function() {
+   $(botoes).click(function() {
+    var id = this.getAttribute('id');
+     $.ajax({
+       url: "listarPersonagens.php",
+       type: "POST",
+       data: { 
+        text: id, 
+        idFilme: idFilme
+      },
+       dataType: "json",
+       success: function(response) {
+        var personagens = response;
+        abrirModal(personagens, id);
+        },
+       error: function(xhr, status, error) {
+         console.error("Erro na requisição AJAX:", status, error);
+       }
+     });
+   });
+ });
+</script>
 <!-- JANELA MODAL PARA EXIBIR OS PERSONAGENS  -->
 
 <div class="janela-modal" id = "janela-modal" >

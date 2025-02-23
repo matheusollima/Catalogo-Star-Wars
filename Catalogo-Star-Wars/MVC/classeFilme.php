@@ -68,18 +68,21 @@ public function setPersonagens($personagens){
    $this->personagens = $personagens;
 }
 
-public function listarPersonagens($p){
+public function listarPersonagens($p, $id){
   $personagensUrl = $p;
   $personagensLista = array();
-  forEach($personagensUrl as $f){
-   $url = $f;
-   $ch = curl_init($url);
-   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-   $personagens = json_decode(curl_exec($ch), true);
-   $personagensLista[] = $personagens;
- }
-  return $personagensLista;
+  $personagensPT = array(); 
+  $url = $personagensUrl[$id];
+  $ch = curl_init($url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  $personagens = json_decode(curl_exec($ch), true);
+  $personagensLista[] = $personagens;
+  $personagensLista[0]['hair_color'] = traduzir($personagensLista[0]['hair_color']);
+  $personagensLista[0]['eye_color'] = traduzir($personagensLista[0]['eye_color']);
+  $personagensLista[0]['skin_color'] = traduzir($personagensLista[0]['skin_color']);
+  $personagensLista[0]['gender'] = traduzir($personagensLista[0]['gender']);
+   return $personagensLista;
 }
 
 

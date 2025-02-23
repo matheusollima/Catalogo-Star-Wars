@@ -1,0 +1,11 @@
+{
+    "name": "wdev/google-tradutor",
+    "autoload":{
+        "psr-4":{
+            "App\\":"app/"
+        }
+    },
+    "require": {
+        "google/cloud-translate": "^1.17"
+    }
+}

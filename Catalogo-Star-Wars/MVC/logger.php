@@ -13,7 +13,6 @@ $stream = new StreamHandler('api_access.log', Logger::INFO);
 $stream->setFormatter(new JsonFormatter());
 $logger->pushHandler($stream);
 
-
 function log_api_request($method, $endpoint, $params, $response_code, $response_body, $ip, $user_agent) {
     $context = [
         'method' => $method,
